@@ -1,8 +1,7 @@
 const Path = require("path");
-const HtmlWebpackPlagin = require("html-webpack-plugin");
 
 module.exports = {
-    entry: Path.resolve(__dirname, "../src/index.js"),
+    entry: Path.resolve(__dirname, "../src/client.js"),
     output: {
         filename: 'bundle.[chunkhash].js',
         path: Path.resolve(__dirname, "../dist")
@@ -32,10 +31,5 @@ module.exports = {
     },
     resolve: {
         extensions: [".js", ".jsx"]
-    },
-    plugins: [
-        new HtmlWebpackPlagin({
-            template: Path.resolve(__dirname, "../index.html")
-        })
-    ]
+    }
 };

@@ -1,6 +1,7 @@
 const Path = require("path");
 const Webpack = require("webpack");
 const merge = require('webpack-merge');
+const HtmlWebpackPlagin = require("html-webpack-plugin");
 const config = require('./webpack.config');
 
 module.exports = merge( config, {
@@ -25,11 +26,17 @@ module.exports = merge( config, {
                         loader: 'css-loader',
                         options: {
                             importLoaders: 1,
-                            modules: true
+                            modules: true,
+                            sourceMap: true
                         }
                     },
                     // // Compiles Sass to CSS
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
                 ]
             },
             {
@@ -45,7 +52,12 @@ module.exports = merge( config, {
                         }
                     },
                     // Compiles Sass to CSS
-                    'sass-loader',
+                    {
+                        loader: 'sass-loader',
+                        options: {
+                            sourceMap: true
+                        }
+                    }
                 ],
                 exclude: /\.module\.s?css$/
             }
@@ -55,7 +67,10 @@ module.exports = merge( config, {
         new Webpack.DefinePlugin({
             "process.env.NODE_ENV": JSON.stringify("development")
         }),
-        new Webpack.HotModuleReplacementPlugin()
+        new Webpack.HotModuleReplacementPlugin(),
+        new HtmlWebpackPlagin({
+            template: Path.resolve(__dirname, "../index.html")
+        })
     ],
     devServer: {
         contentBase: Path.join(__dirname, '../dist'),
