@@ -2,12 +2,13 @@ const Path = require("path");
 const Webpack = require("webpack");
 const merge = require('webpack-merge');
 const HtmlWebpackPlagin = require("html-webpack-plugin");
+const CopyPlugin = require('copy-webpack-plugin');
 const config = require('./webpack.config');
 
 module.exports = merge( config, {
     mode: "development",
     output: {
-        filename: 'bundle.[hash].js',
+        filename: 'assets/js/bundle.[hash].js',
     },
     module: {
         rules: [
@@ -70,7 +71,10 @@ module.exports = merge( config, {
         new Webpack.HotModuleReplacementPlugin(),
         new HtmlWebpackPlagin({
             template: Path.resolve(__dirname, "../index.html")
-        })
+        }),
+        new CopyPlugin([
+            { from: Path.resolve(__dirname, "../src/assets"), to: Path.resolve(__dirname, "../dist/assets") }
+        ]),
     ],
     devServer: {
         contentBase: Path.join(__dirname, '../dist'),

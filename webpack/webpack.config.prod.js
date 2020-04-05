@@ -5,6 +5,8 @@ const CompressionPlugin = require('compression-webpack-plugin');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const Webpack = require('webpack');
 const ManifestPlugin = require('webpack-manifest-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+const Path = require("path");
 const config = require('./webpack.config');
 
 module.exports = merge( config, {
@@ -39,12 +41,15 @@ module.exports = merge( config, {
         new CompressionPlugin(),
         new CleanWebpackPlugin(),
         new MiniCssExtractPlugin({
-            filename: '[name].[hash].css',
+            filename: 'assets/css/[name].[chunkhash].css',
             chunkFilename: '[id].[hash].css'
         }),
         // Creates file which contain information about build
         new ManifestPlugin({
             isAsset: true
-        })
+        }),
+        new CopyPlugin([
+            { from: Path.resolve(__dirname, "../src/assets"), to: Path.resolve(__dirname, "../dist/assets") }
+        ]),
     ]
 });

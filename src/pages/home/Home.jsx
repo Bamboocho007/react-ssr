@@ -4,7 +4,6 @@ import { connect } from 'react-redux';
 import { setHomeData } from "./../../store/actions";
 
 function Home( props ) {
-    console.log( props );
     return (
         <div>
             Home page

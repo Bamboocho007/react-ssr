@@ -3,7 +3,7 @@ const Path = require("path");
 module.exports = {
     entry: Path.resolve(__dirname, "../src/client.js"),
     output: {
-        filename: 'bundle.[chunkhash].js',
+        filename: 'assets/js/bundle.[chunkhash].js',
         path: Path.resolve(__dirname, "../dist")
     },
     module: {
